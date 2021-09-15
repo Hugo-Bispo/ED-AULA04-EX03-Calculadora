@@ -1,56 +1,60 @@
 package controller;
+import javax.swing.JOptionPane;
+
 import br.edu.fateczl.hugobispo.pilhaint.Pilha;
 
 public class NPRController {
-	
+
 	public void insereValor(Pilha p, int dado) {
 		p.push(dado);
 	}
 	
-	public String npr(Pilha p, String dado) {
-		int resultado1 = 0;
-		String resultado = "";
+	public int npr(Pilha p, String dado) {
+		
+		boolean validador = false;
+		int resultado = 0;
+		
 		int valor1 = 0;
 		int valor2 = 0;
 				
 		try {
-			valor1 = p.pop();
+			valor1 = p.pop();		
 			valor2 = p.pop();
 		} catch (Exception e1) {
-			e1.printStackTrace();
+			validador = true;
 		}
 		
-		switch (dado) {
-		case "+":
-			System.out.print(dado);
-			resultado1 = valor1 + valor2;
-			p.push(resultado1);
-			break;
-		case "-":
-			System.out.print(dado);
-			resultado1 = valor1 - valor2;
-			p.push(resultado1);
-			break;
-		case "/":
-			System.out.print(dado);
-			resultado1 = valor1 / valor2;
-			p.push(resultado1);
-			break;
-		case "*":
-			System.out.print(dado);
-			resultado1 = valor1 * valor2;
-			p.push(resultado1);
-		}
-		
-		while((p.isEmpty()==false)){ // Encontrar uma solucao para somente remover 2
-			try {
-				int valor = p.pop();
-				resultado += "\n" + Integer.toString(valor);
-			} catch (Exception e) {
-				e.printStackTrace();
+		if(validador==false) {
+			switch (dado) {
+			case "+":
+				System.out.print(dado);
+				resultado = valor1 + valor2;
+				p.push(resultado);
+				break;
+			case "-":
+				System.out.print(dado);
+				resultado =  valor2 - valor1;
+				p.push(resultado);
+				break;
+			case "/":
+				System.out.print(dado);
+				resultado = valor2/valor1;
+				p.push(resultado);
+				break;
+			case "*":
+				System.out.print(dado);
+				resultado = valor1 * valor2;
+				p.push(resultado);
+				break;
+			default:
+				JOptionPane.showMessageDialog(null,"Opção Invalida");
+				break;
 			}
+		}else {
+			JOptionPane.showMessageDialog(null," Não há numeros para desempilhar");
+			resultado = 0;
 		}
-		System.out.println("Valor 1" + valor1 + "Valor 2" + valor2 + "Resultado =" +resultado1);
+		JOptionPane.showMessageDialog(null, valor1 +" "+  dado +" "+ valor2);
 		return resultado;
 	}
 
